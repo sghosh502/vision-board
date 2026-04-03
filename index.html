@@ -53,9 +53,7 @@
       letter-spacing: 0.04em;
       line-height: 1.1;
     }
-    header h1 span {
-      color: var(--gold-light);
-    }
+    header h1 span { color: var(--gold-light); }
     header p.sub {
       font-family: 'Montserrat', sans-serif;
       font-weight: 200;
@@ -67,38 +65,18 @@
     }
 
     /* ── Board frame ── */
-    .board-wrap {
-      padding: 2rem clamp(1rem, 4vw, 3rem) 4rem;
-    }
+    .board-wrap { padding: 2rem clamp(1rem, 4vw, 3rem) 4rem; }
     .board {
       position: relative;
       background:
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 28px,
-          rgba(0,0,0,0.04) 28px,
-          rgba(0,0,0,0.04) 29px
-        ),
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 28px,
-          rgba(0,0,0,0.04) 28px,
-          rgba(0,0,0,0.04) 29px
-        ),
+        repeating-linear-gradient(0deg,transparent,transparent 28px,rgba(0,0,0,0.04) 28px,rgba(0,0,0,0.04) 29px),
+        repeating-linear-gradient(90deg,transparent,transparent 28px,rgba(0,0,0,0.04) 28px,rgba(0,0,0,0.04) 29px),
         radial-gradient(ellipse at 20% 30%, #c9935a 0%, #b07840 40%, #8a5c28 100%);
       border-radius: 4px;
       padding: clamp(1.5rem, 3vw, 3rem);
-      box-shadow:
-        0 0 0 10px #5a3a18,
-        0 0 0 14px #3d2510,
-        0 20px 80px rgba(0,0,0,0.7),
-        inset 0 0 60px rgba(0,0,0,0.15);
+      box-shadow: 0 0 0 10px #5a3a18, 0 0 0 14px #3d2510, 0 20px 80px rgba(0,0,0,0.7), inset 0 0 60px rgba(0,0,0,0.15);
       min-height: 90vh;
     }
-
-    /* Cork texture overlay */
     .board::before {
       content: '';
       position: absolute;
@@ -109,11 +87,10 @@
       opacity: 0.5;
     }
 
-    /* ── Grid layout ── */
+    /* ── Grid ── */
     .grid {
       display: grid;
       grid-template-columns: repeat(12, 1fr);
-      grid-template-rows: auto;
       gap: clamp(0.8rem, 2vw, 1.5rem);
       position: relative;
       z-index: 1;
@@ -122,11 +99,9 @@
     /* ── Pin ── */
     .pin {
       position: absolute;
-      top: -14px;
-      left: 50%;
+      top: -14px; left: 50%;
       transform: translateX(-50%);
-      width: 18px;
-      height: 18px;
+      width: 18px; height: 18px;
       border-radius: 50%;
       z-index: 10;
       box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 -2px 4px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.3);
@@ -134,51 +109,34 @@
     .pin::after {
       content: '';
       position: absolute;
-      bottom: -8px;
-      left: 50%;
+      bottom: -8px; left: 50%;
       transform: translateX(-50%);
-      width: 3px;
-      height: 10px;
+      width: 3px; height: 10px;
       background: linear-gradient(to bottom, #888, #555);
       border-radius: 0 0 2px 2px;
     }
-    .pin-red { background: radial-gradient(circle at 35% 35%, #e74c3c, #922b21); }
-    .pin-gold { background: radial-gradient(circle at 35% 35%, #f0c040, #8a6200); }
+    .pin-red   { background: radial-gradient(circle at 35% 35%, #e74c3c, #922b21); }
+    .pin-gold  { background: radial-gradient(circle at 35% 35%, #f0c040, #8a6200); }
     .pin-white { background: radial-gradient(circle at 35% 35%, #ffffff, #aaaaaa); }
-    .pin-black { background: radial-gradient(circle at 35% 35%, #555, #111); }
 
-    /* ── Photo card (polaroid) ── */
+    /* ── Photo card ── */
     .photo-card {
       position: relative;
       background: white;
       padding: 10px 10px 36px;
       box-shadow: 4px 6px 18px rgba(0,0,0,0.45), 1px 1px 0 rgba(255,255,255,0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: default;
     }
-    .photo-card:hover {
-      box-shadow: 8px 12px 30px rgba(0,0,0,0.6), 1px 1px 0 rgba(255,255,255,0.1);
-      z-index: 20;
-    }
-    .photo-card img {
-      width: 100%;
-      display: block;
-      object-fit: cover;
-    }
+    .photo-card:hover { box-shadow: 8px 12px 30px rgba(0,0,0,0.6); z-index: 20; }
+    .photo-card img { width: 100%; display: block; object-fit: cover; }
     .photo-card .caption {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       font-family: 'Dancing Script', cursive;
-      font-size: 0.95rem;
-      color: #333;
-      padding: 0 8px;
-      text-align: center;
+      font-size: 0.95rem; color: #333;
+      padding: 0 8px; text-align: center;
     }
 
     /* ── Sticky note ── */
@@ -191,43 +149,30 @@
       transition: transform 0.3s ease;
     }
     .sticky:hover { z-index: 20; }
-    .sticky-cream { background: #fdf8e8; color: #3a2a10; }
-    .sticky-pink  { background: #fde8e8; color: #4a1a1a; }
-    .sticky-sage  { background: #e8f0e8; color: #1a3020; }
+    .sticky-cream    { background: #fdf8e8; color: #3a2a10; }
+    .sticky-pink     { background: #fde8e8; color: #4a1a1a; }
+    .sticky-sage     { background: #e8f0e8; color: #1a3020; }
     .sticky-lavender { background: #ede8f5; color: #2a1a4a; }
     .sticky h3 {
       font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 1.05rem;
-      font-weight: 700;
+      font-style: italic; font-size: 1.05rem; font-weight: 700;
       margin-bottom: 0.5rem;
-      color: inherit;
     }
-    .sticky ul {
-      list-style: none;
-      font-size: 1rem;
-    }
+    .sticky ul { list-style: none; font-size: 1rem; }
     .sticky ul li::before { content: '✓ '; opacity: 0.6; }
 
     /* ── Quote card ── */
     .quote-card {
       position: relative;
       padding: 1.5rem 1.8rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+      display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
     }
     .quote-card.dark-card {
       background: linear-gradient(135deg, #1a1208, #2d1f0a);
       border: 1px solid rgba(201,168,76,0.3);
       color: var(--cream);
     }
-    .quote-card.gold-card {
-      background: linear-gradient(135deg, #b8860b, #c9a84c, #e8cb7e);
-      color: #1a1208;
-    }
+    .quote-card.gold-card { background: linear-gradient(135deg, #b8860b, #c9a84c, #e8cb7e); color: #1a1208; }
     .quote-card blockquote {
       font-family: 'Playfair Display', serif;
       font-style: italic;
@@ -239,111 +184,446 @@
     .quote-card .attr {
       margin-top: 0.8rem;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 200;
-      font-size: 0.65rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      opacity: 0.6;
+      font-weight: 200; font-size: 0.65rem;
+      letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.6;
     }
 
-    /* ── Tape strips ── */
+    /* ── Tape ── */
     .tape {
       position: absolute;
-      width: 60px;
-      height: 22px;
+      width: 60px; height: 22px;
       background: rgba(255,255,200,0.5);
       border-left: 1px solid rgba(200,200,100,0.3);
       border-right: 1px solid rgba(200,200,100,0.3);
       z-index: 10;
     }
-    .tape-top    { top: -10px; left: 50%; transform: translateX(-50%) rotate(-2deg); }
-    .tape-topleft { top: -8px; left: 10px; transform: rotate(-8deg); }
-    .tape-topright { top: -8px; right: 10px; transform: rotate(8deg); }
+    .tape-top      { top: -10px; left: 50%; transform: translateX(-50%) rotate(-2deg); }
+    .tape-topleft  { top: -8px;  left: 10px; transform: rotate(-8deg); }
+    .tape-topright { top: -8px;  right: 10px; transform: rotate(8deg); }
 
-    /* ── Title label ── */
+    /* ── Label ── */
     .label {
-      position: relative;
       background: var(--cream);
       border: 2px solid var(--gold);
       padding: 0.6rem 1.5rem;
       text-align: center;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
-      font-size: 0.65rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
+      font-weight: 300; font-size: 0.65rem;
+      letter-spacing: 0.35em; text-transform: uppercase;
       color: var(--cork-dark);
       box-shadow: 2px 3px 8px rgba(0,0,0,0.2);
-      align-self: center;
-      justify-self: center;
+      align-self: center; justify-self: center;
     }
 
-    /* ── Specific grid placements ── */
+    /* ── Grid placements ── */
+    .c-title  { grid-column: 1/13; grid-row:1; display:flex; align-items:center; justify-content:center; padding:0.5rem 0; }
+    .c-chess  { grid-column: 1/5;  grid-row:2; transform:rotate(-2deg); }
+    .c-q1     { grid-column: 5/9;  grid-row:2; }
+    .c-lucky  { grid-column: 9/13; grid-row:2; transform:rotate(1.5deg); }
+    .c-s1     { grid-column: 1/4;  grid-row:3; transform:rotate(1deg); }
+    .c-fitness{ grid-column: 4/8;  grid-row:3; transform:rotate(-1.5deg); }
+    .c-chess2 { grid-column: 8/11; grid-row:3; transform:rotate(2deg); }
+    .c-s2     { grid-column:11/13; grid-row:3; transform:rotate(-1deg); }
+    .c-q2     { grid-column: 1/5;  grid-row:4; }
+    .c-remote { grid-column: 5/10; grid-row:4; transform:rotate(-1deg); }
+    .c-s3     { grid-column:10/13; grid-row:4; transform:rotate(1.5deg); }
+    .c-goals  { grid-column: 1/5;  grid-row:5; transform:rotate(1.5deg); }
+    .c-q3     { grid-column: 5/9;  grid-row:5; }
+    .c-s4     { grid-column: 9/13; grid-row:5; transform:rotate(-0.5deg); }
 
-    /* Row 1 */
-    .c-title   { grid-column: 1 / 13; grid-row: 1;
-                  display: flex; align-items: center; justify-content: center; padding: 0.5rem 0; }
-    .c-chess   { grid-column: 1 / 5;  grid-row: 2; transform: rotate(-2deg); }
-    .c-q1      { grid-column: 5 / 9;  grid-row: 2; }
-    .c-lucky   { grid-column: 9 / 13; grid-row: 2; transform: rotate(1.5deg); }
-
-    /* Row 2 */
-    .c-s1      { grid-column: 1 / 4;  grid-row: 3; transform: rotate(1deg); }
-    .c-fitness { grid-column: 4 / 8;  grid-row: 3; transform: rotate(-1.5deg); }
-    .c-chess2  { grid-column: 8 / 11; grid-row: 3; transform: rotate(2deg); }
-    .c-s2      { grid-column: 11 / 13; grid-row: 3; transform: rotate(-1deg); }
-
-    /* Row 3 */
-    .c-q2      { grid-column: 1 / 5;  grid-row: 4; }
-    .c-remote  { grid-column: 5 / 10; grid-row: 4; transform: rotate(-1deg); }
-    .c-s3      { grid-column: 10 / 13; grid-row: 4; transform: rotate(1.5deg); }
-
-    /* Row 4 */
-    .c-goals   { grid-column: 1 / 5;  grid-row: 5; transform: rotate(1.5deg); }
-    .c-q3      { grid-column: 5 / 9;  grid-row: 5; }
-    .c-s4      { grid-column: 9 / 13; grid-row: 5; transform: rotate(-0.5deg); }
-
-    /* ── Photo heights ── */
     .c-chess img, .c-lucky img { height: 280px; }
-    .c-fitness img             { height: 320px; }
-    .c-chess2 img              { height: 260px; }
-    .c-remote img              { height: 300px; }
-    .c-goals img               { height: 260px; }
+    .c-fitness img { height: 320px; }
+    .c-chess2 img  { height: 260px; }
+    .c-remote img  { height: 300px; }
+    .c-goals img   { height: 260px; }
 
-    /* ── Footer ── */
     footer {
-      text-align: center;
-      padding: 2rem;
+      text-align: center; padding: 2rem;
       color: rgba(196,149,106,0.4);
       font-family: 'Dancing Script', cursive;
-      font-size: 1rem;
-      letter-spacing: 0.1em;
+      font-size: 1rem; letter-spacing: 0.1em;
     }
 
-    /* ── Responsive ── */
     @media (max-width: 900px) {
       .grid { grid-template-columns: repeat(6, 1fr); }
-      .c-title   { grid-column: 1 / 7; grid-row: 1; }
-      .c-chess   { grid-column: 1 / 4; grid-row: 2; }
-      .c-q1      { grid-column: 4 / 7; grid-row: 2; }
-      .c-lucky   { grid-column: 1 / 4; grid-row: 3; }
-      .c-s1      { grid-column: 4 / 7; grid-row: 3; }
-      .c-fitness { grid-column: 1 / 4; grid-row: 4; }
-      .c-chess2  { grid-column: 4 / 7; grid-row: 4; }
-      .c-s2      { grid-column: 1 / 4; grid-row: 5; }
-      .c-q2      { grid-column: 4 / 7; grid-row: 5; }
-      .c-remote  { grid-column: 1 / 7; grid-row: 6; }
-      .c-s3      { grid-column: 1 / 4; grid-row: 7; }
-      .c-goals   { grid-column: 4 / 7; grid-row: 7; }
-      .c-q3      { grid-column: 1 / 4; grid-row: 8; }
-      .c-s4      { grid-column: 4 / 7; grid-row: 8; }
+      .c-title  { grid-column:1/7;  grid-row:1; }
+      .c-chess  { grid-column:1/4;  grid-row:2; }
+      .c-q1     { grid-column:4/7;  grid-row:2; }
+      .c-lucky  { grid-column:1/4;  grid-row:3; }
+      .c-s1     { grid-column:4/7;  grid-row:3; }
+      .c-fitness{ grid-column:1/4;  grid-row:4; }
+      .c-chess2 { grid-column:4/7;  grid-row:4; }
+      .c-s2     { grid-column:1/4;  grid-row:5; }
+      .c-q2     { grid-column:4/7;  grid-row:5; }
+      .c-remote { grid-column:1/7;  grid-row:6; }
+      .c-s3     { grid-column:1/4;  grid-row:7; }
+      .c-goals  { grid-column:4/7;  grid-row:7; }
+      .c-q3     { grid-column:1/4;  grid-row:8; }
+      .c-s4     { grid-column:4/7;  grid-row:8; }
     }
-
     @media (max-width: 600px) {
       .grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
-      .c-title, .c-q1, .c-q2, .c-q3, .c-remote { grid-column: 1 / 3; }
-      .c-chess, .c-lucky, .c-fitness, .c-chess2, .c-s1, .c-s2, .c-s3, .c-s4, .c-goals { grid-column: auto; }
+      .c-title,.c-q1,.c-q2,.c-q3,.c-remote { grid-column:1/3; }
       .photo-card img { height: 200px !important; }
+    }
+
+    /* ════════════════════════════════
+       PLANNER STYLES
+    ════════════════════════════════ */
+
+    /* Floating button */
+    .planner-btn {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      z-index: 500;
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.4rem;
+      background: linear-gradient(135deg, #1a1208, #2d1f0a);
+      border: 1px solid rgba(201,168,76,0.5);
+      color: #e8cb7e;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300; font-size: 0.78rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      cursor: pointer; border-radius: 2px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    .planner-btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(201,168,76,0.9);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6), 0 0 20px rgba(201,168,76,0.15);
+    }
+
+    /* Saved toast */
+    .saved-toast {
+      position: fixed;
+      bottom: 5rem; right: 2rem;
+      z-index: 600;
+      background: #2d1f0a;
+      border: 1px solid rgba(201,168,76,0.4);
+      color: #e8cb7e;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem; letter-spacing: 0.2em;
+      padding: 0.4rem 0.9rem;
+      border-radius: 2px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .saved-toast.show { opacity: 1; }
+
+    /* Overlay */
+    .planner-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      z-index: 900;
+      background: rgba(10,7,2,0.88);
+      backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+    }
+    .planner-overlay.open { display: flex; }
+
+    /* Book */
+    .book-wrap {
+      position: relative;
+      display: flex;
+      width: min(900px, 96vw);
+      height: min(580px, 92vh);
+      border-radius: 2px;
+      box-shadow: 0 0 0 1px rgba(201,168,76,0.2), 0 30px 80px rgba(0,0,0,0.8), -6px 0 20px rgba(0,0,0,0.5);
+      animation: bookOpen 0.5s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    @keyframes bookOpen {
+      from { opacity:0; transform: scale(0.9) rotateX(4deg); }
+      to   { opacity:1; transform: scale(1) rotateX(0); }
+    }
+
+    .book-close {
+      position: absolute; top: -14px; right: -14px; z-index: 10;
+      width: 30px; height: 30px; border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.4);
+      background: #1a1208; color: #e8cb7e;
+      font-size: 0.75rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .book-close:hover { background: #2d1f0a; }
+
+    /* Left cover */
+    .book-cover-left {
+      width: 36%;
+      height: 100%;
+      background: linear-gradient(160deg, #1c1308, #0e0a04);
+      border-right: 3px solid #050300;
+      box-shadow: inset -8px 0 20px rgba(0,0,0,0.5), 2px 0 6px rgba(0,0,0,0.4);
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+      padding: 1.8rem 1.2rem;
+      border-radius: 2px 0 0 2px;
+      position: relative; overflow: hidden;
+    }
+    .book-cover-left::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(0deg,transparent,transparent 24px,rgba(201,168,76,0.04) 24px,rgba(201,168,76,0.04) 25px);
+    }
+    .cover-ornament { font-size: 1rem; color: rgba(201,168,76,0.4); letter-spacing:0.5em; margin-bottom:0.8rem; }
+    .cover-title {
+      display: flex; flex-direction: column; align-items: center;
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-size: clamp(1.2rem,2.5vw,1.8rem);
+      color: #e8cb7e; line-height: 1.1; text-align: center;
+      margin-bottom: 0.3rem;
+    }
+    .cover-year {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 200; font-size: 0.6rem;
+      letter-spacing: 0.5em; color: rgba(201,168,76,0.45);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Chapter tabs */
+    .chapter-tabs { display: flex; flex-direction: column; gap: 0.35rem; width: 100%; margin-bottom: 1rem; }
+    .ch-tab {
+      background: transparent;
+      border: 1px solid rgba(201,168,76,0.15);
+      color: rgba(232,203,126,0.6);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300; font-size: 0.65rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.45rem 0.7rem;
+      text-align: left; cursor: pointer; border-radius: 1px;
+      transition: all 0.2s;
+      display: flex; align-items: center; gap: 0.4rem;
+      position: relative;
+    }
+    .ch-tab:hover, .ch-tab.active {
+      background: rgba(201,168,76,0.1);
+      border-color: rgba(201,168,76,0.45);
+      color: #e8cb7e;
+    }
+    .ch-tab .tab-del {
+      margin-left: auto;
+      opacity: 0;
+      font-size: 0.7rem;
+      color: rgba(201,168,76,0.5);
+      background: none; border: none; cursor: pointer;
+      transition: opacity 0.15s;
+      padding: 0 2px;
+    }
+    .ch-tab:hover .tab-del { opacity: 1; }
+
+    /* Add page button */
+    .add-page-btn {
+      width: 100%;
+      background: transparent;
+      border: 1px dashed rgba(201,168,76,0.25);
+      color: rgba(201,168,76,0.45);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300; font-size: 0.62rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 0.4rem 0.7rem;
+      cursor: pointer; border-radius: 1px;
+      transition: all 0.2s;
+    }
+    .add-page-btn:hover {
+      border-color: rgba(201,168,76,0.5);
+      color: #e8cb7e;
+      background: rgba(201,168,76,0.05);
+    }
+
+    /* Right page side */
+    .book-right-side {
+      flex: 1; height: 100%;
+      background: #faf4e6;
+      border-radius: 0 2px 2px 0;
+      display: flex; flex-direction: column;
+      overflow: hidden; position: relative;
+    }
+    .book-right-side::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(transparent,transparent 31px,rgba(180,160,120,0.18) 31px,rgba(180,160,120,0.18) 32px);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* Page container */
+    .page-container { flex: 1; position: relative; overflow: hidden; }
+
+    .page-sheet {
+      position: absolute; inset: 0;
+      padding: 1.5rem 2rem 0.5rem;
+      opacity: 0; pointer-events: none;
+      transform: translateX(50px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 1;
+      display: flex; flex-direction: column;
+    }
+    .page-sheet.active {
+      opacity: 1; pointer-events: auto;
+      transform: translateX(0); z-index: 2;
+    }
+    .page-sheet.exit {
+      opacity: 0; transform: translateX(-50px); z-index: 1;
+    }
+
+    /* Page header */
+    .page-header {
+      display: flex; align-items: center; gap: 0.6rem;
+      margin-bottom: 0.8rem; position: relative; z-index: 1;
+      flex-shrink: 0;
+    }
+    .page-icon { font-size: 1.2rem; cursor: pointer; title: "click to change"; }
+    .page-title-input {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      color: #2a1a08;
+      font-weight: 400;
+      background: transparent;
+      border: none; border-bottom: 1.5px solid transparent;
+      outline: none; width: 100%;
+      transition: border-color 0.2s;
+    }
+    .page-title-input:focus { border-bottom-color: #c9a84c; }
+    .page-rule {
+      height: 1.5px;
+      background: linear-gradient(to right, #c9a84c, transparent);
+      margin-bottom: 0.8rem; width: 80%;
+      flex-shrink: 0; position: relative; z-index: 1;
+    }
+
+    /* Checklist */
+    .checklist {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 0.3rem;
+      position: relative; z-index: 1;
+      overflow-y: auto; flex: 1;
+      padding-bottom: 0.5rem;
+    }
+    .checklist::-webkit-scrollbar { width: 3px; }
+    .checklist::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 2px; }
+
+    .checklist-item {
+      display: flex; align-items: center; gap: 0.5rem;
+      group: true;
+    }
+    .checklist-item input[type="checkbox"] {
+      appearance: none; -webkit-appearance: none;
+      width: 13px; height: 13px;
+      border: 1.5px solid #c9a84c; border-radius: 2px;
+      flex-shrink: 0; cursor: pointer;
+      position: relative; transition: background 0.15s;
+    }
+    .checklist-item input[type="checkbox"]:checked { background: #c9a84c; }
+    .checklist-item input[type="checkbox"]:checked::after {
+      content: '✓';
+      position: absolute; top: -2px; left: 1px;
+      font-size: 9px; color: white; font-weight: bold;
+    }
+    .item-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; color: #3a2a10;
+      background: transparent; border: none; outline: none;
+      width: 100%;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+      cursor: text;
+    }
+    .item-text:focus { border-bottom-color: rgba(201,168,76,0.4); }
+    .item-text.done { text-decoration: line-through; opacity: 0.45; }
+    .item-del {
+      flex-shrink: 0;
+      background: none; border: none;
+      color: rgba(180,120,60,0.3);
+      font-size: 0.85rem; cursor: pointer;
+      opacity: 0; transition: opacity 0.15s;
+      padding: 0 2px;
+    }
+    .checklist-item:hover .item-del { opacity: 1; }
+
+    /* Add item row */
+    .add-item-row {
+      position: relative; z-index: 1;
+      flex-shrink: 0; padding: 0.4rem 0 0;
+    }
+    .add-item-btn {
+      background: none; border: none;
+      color: rgba(156,111,69,0.5);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem; cursor: pointer;
+      padding: 0.2rem 0;
+      transition: color 0.2s;
+      display: flex; align-items: center; gap: 0.3rem;
+    }
+    .add-item-btn:hover { color: #9c6f45; }
+
+    /* Page number */
+    .page-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 0.8rem;
+      color: rgba(160,130,80,0.4);
+      text-align: right;
+      flex-shrink: 0; padding: 0.3rem 0;
+      position: relative; z-index: 1;
+    }
+
+    /* Nav bar */
+    .page-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.5rem 1.2rem;
+      background: rgba(245,237,214,0.9);
+      border-top: 1px solid rgba(180,160,120,0.25);
+      position: relative; z-index: 3;
+      flex-shrink: 0;
+    }
+    .page-arrow {
+      background: none;
+      border: 1px solid rgba(180,140,60,0.3);
+      color: #9c6f45;
+      font-size: 1.3rem;
+      width: 30px; height: 30px;
+      border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; line-height: 1;
+    }
+    .page-arrow:hover:not(:disabled) { background: rgba(201,168,76,0.15); border-color: #c9a84c; }
+    .page-arrow:disabled { opacity: 0.2; cursor: default; }
+    .page-dots { display: flex; gap: 0.4rem; align-items: center; }
+    .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(180,140,60,0.25);
+      transition: background 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+    .dot.active { background: #c9a84c; transform: scale(1.3); }
+
+    /* Emoji picker modal */
+    .emoji-picker {
+      display: none;
+      position: fixed;
+      z-index: 1100;
+      background: #1c1308;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 4px;
+      padding: 0.8rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      width: 200px;
+    }
+    .emoji-picker.open { display: flex; }
+    .emoji-opt {
+      font-size: 1.2rem; cursor: pointer;
+      padding: 0.2rem; border-radius: 3px;
+      transition: background 0.15s;
+    }
+    .emoji-opt:hover { background: rgba(201,168,76,0.15); }
+
+    @media (max-width: 600px) {
+      .book-cover-left { width: 28%; padding: 1rem 0.6rem; }
+      .cover-title { font-size: 1rem; }
+      .page-sheet { padding: 1rem 1rem 0.5rem; }
+      .item-text { font-size: 0.9rem; }
     }
   </style>
 </head>
@@ -358,33 +638,28 @@
   <div class="board">
     <div class="grid">
 
-      <!-- Section label -->
       <div class="c-title">
         <div class="label">2026 &nbsp;·&nbsp; Everything I'm Becoming</div>
       </div>
 
-      <!-- Chess / Power -->
       <div class="photo-card c-chess">
         <div class="pin pin-red"></div>
         <img src="images/chess.jpg" alt="Power & elegance" />
         <div class="caption">power moves only</div>
       </div>
 
-      <!-- Quote 1 -->
       <div class="quote-card dark-card c-q1" style="transform:rotate(0.5deg);">
         <div class="tape tape-top"></div>
         <blockquote>She is both the storm and the calm. She moves in silence and wins in style.</blockquote>
         <div class="attr">— a reminder</div>
       </div>
 
-      <!-- Lucky -->
       <div class="photo-card c-lucky">
         <div class="pin pin-gold"></div>
         <img src="images/lucky.jpg" alt="Luckiest girl in the world" style="height:280px; object-position:center;" />
         <div class="caption">luckiest girl in the world</div>
       </div>
 
-      <!-- Sticky 1 — Mindset -->
       <div class="sticky sticky-cream c-s1">
         <div class="tape tape-topleft"></div>
         <h3>Mindset</h3>
@@ -396,21 +671,18 @@
         </ul>
       </div>
 
-      <!-- Fitness -->
       <div class="photo-card c-fitness">
         <div class="pin pin-white"></div>
         <img src="images/fitness.jpg" alt="Health & wellness" />
         <div class="caption">nourish to flourish</div>
       </div>
 
-      <!-- Chess 2 / Cocktail -->
       <div class="photo-card c-chess2">
         <div class="pin pin-gold"></div>
         <img src="images/chess2.jpg" alt="Sophistication" />
         <div class="caption">sip, savor, strategize</div>
       </div>
 
-      <!-- Sticky 2 — Body -->
       <div class="sticky sticky-sage c-s2">
         <div class="tape tape-topright"></div>
         <h3>Body Goals</h3>
@@ -422,20 +694,17 @@
         </ul>
       </div>
 
-      <!-- Quote 2 -->
       <div class="quote-card gold-card c-q2" style="transform:rotate(-0.5deg);">
         <div class="tape tape-top"></div>
         <blockquote>Your body is the most important real estate you'll ever own. Invest in it like it.</blockquote>
       </div>
 
-      <!-- Remote work / Freedom -->
       <div class="photo-card c-remote">
         <div class="pin pin-red"></div>
         <img src="images/remote.jpg" alt="Remote work freedom" />
         <div class="caption">office views that take my breath away</div>
       </div>
 
-      <!-- Sticky 3 — Freedom -->
       <div class="sticky sticky-pink c-s3">
         <div class="tape tape-topleft"></div>
         <h3>Freedom</h3>
@@ -447,21 +716,18 @@
         </ul>
       </div>
 
-      <!-- Goals photo -->
       <div class="photo-card c-goals">
         <div class="pin pin-gold"></div>
         <img src="images/goals.jpg" alt="Goals" />
         <div class="caption">dream big, act bigger</div>
       </div>
 
-      <!-- Quote 3 -->
       <div class="quote-card dark-card c-q3" style="transform:rotate(0.3deg);">
         <div class="tape tape-top"></div>
         <blockquote>The life you want is on the other side of the work you're avoiding.</blockquote>
         <div class="attr">— do the work</div>
       </div>
 
-      <!-- Sticky 4 — Wealth -->
       <div class="sticky sticky-lavender c-s4">
         <div class="tape tape-topright"></div>
         <h3>Abundance</h3>
@@ -473,608 +739,412 @@
         </ul>
       </div>
 
-    </div><!-- /grid -->
-  </div><!-- /board -->
+    </div>
+  </div>
 </div>
 
-<footer>
-  made with intention &nbsp;✦&nbsp; 2026
-</footer>
+<footer>made with intention &nbsp;✦&nbsp; 2026</footer>
 
 <!-- ── PLANNER BUTTON ── -->
 <button class="planner-btn" onclick="openPlanner()">
-  <span class="planner-btn-icon">📖</span>
-  <span>My Planner</span>
+  <span>📖</span><span>My Planner</span>
 </button>
+<div class="saved-toast" id="savedToast">Saved ✓</div>
+
+<!-- ── EMOJI PICKER ── -->
+<div class="emoji-picker" id="emojiPicker">
+  <span class="emoji-opt">☀️</span><span class="emoji-opt">📦</span>
+  <span class="emoji-opt">💰</span><span class="emoji-opt">✈️</span>
+  <span class="emoji-opt">🏠</span><span class="emoji-opt">💪</span>
+  <span class="emoji-opt">📚</span><span class="emoji-opt">🎯</span>
+  <span class="emoji-opt">💄</span><span class="emoji-opt">🌿</span>
+  <span class="emoji-opt">🍷</span><span class="emoji-opt">🧘</span>
+  <span class="emoji-opt">💻</span><span class="emoji-opt">🌸</span>
+  <span class="emoji-opt">⭐</span><span class="emoji-opt">🔑</span>
+  <span class="emoji-opt">🏆</span><span class="emoji-opt">🦋</span>
+  <span class="emoji-opt">🌙</span><span class="emoji-opt">✨</span>
+</div>
 
 <!-- ── PLANNER MODAL ── -->
 <div class="planner-overlay" id="plannerOverlay" onclick="closePlannerOutside(event)">
-  <div class="planner-scene">
+  <div class="book-wrap" id="bookWrap">
 
-    <!-- Book wrapper -->
-    <div class="book-wrap" id="bookWrap">
+    <button class="book-close" onclick="closePlanner()">✕</button>
 
-      <!-- Close -->
-      <button class="book-close" onclick="closePlanner()">✕</button>
+    <!-- Left cover -->
+    <div class="book-cover-left">
+      <div class="cover-ornament">✦</div>
+      <div class="cover-title"><span>my</span><span>planner</span></div>
+      <div class="cover-year">2026</div>
+      <nav class="chapter-tabs" id="chapterTabs"></nav>
+      <button class="add-page-btn" onclick="addPage()">+ add page</button>
+    </div>
 
-      <!-- Left cover page -->
-      <div class="book-cover-left">
-        <div class="cover-ornament">✦</div>
-        <div class="cover-title">
-          <span>my</span>
-          <span>planner</span>
-        </div>
-        <div class="cover-year">2026</div>
-        <nav class="chapter-tabs">
-          <button class="ch-tab" onclick="goToPage(0)" data-page="0">
-            <span class="ch-icon">☀️</span> Miami
-          </button>
-          <button class="ch-tab" onclick="goToPage(1)" data-page="1">
-            <span class="ch-icon">📦</span> Moving
-          </button>
-          <button class="ch-tab" onclick="goToPage(2)" data-page="2">
-            <span class="ch-icon">💰</span> Career
-          </button>
-        </nav>
-        <div class="cover-lines"></div>
+    <!-- Right page -->
+    <div class="book-right-side">
+      <div class="page-container" id="pageContainer"></div>
+      <div class="page-nav">
+        <button class="page-arrow" id="prevArrow" onclick="prevPage()">&#8249;</button>
+        <div class="page-dots" id="pageDots"></div>
+        <button class="page-arrow" id="nextArrow" onclick="nextPage()">&#8250;</button>
       </div>
+    </div>
 
-      <!-- Right page (content) -->
-      <div class="book-right-side">
-        <div class="page-container" id="pageContainer">
-
-          <!-- Page 0: Miami -->
-          <div class="page-sheet active" id="page-0">
-            <div class="page-header">
-              <span class="page-icon">☀️</span>
-              <h2>Miami Bucket List</h2>
-              <div class="page-rule"></div>
-            </div>
-            <ul class="checklist">
-              <li><label><input type="checkbox"/> South Beach sunset walk</label></li>
-              <li><label><input type="checkbox"/> Wynwood Walls art district</label></li>
-              <li><label><input type="checkbox"/> Dinner at Joe's Stone Crab</label></li>
-              <li><label><input type="checkbox"/> Rooftop bar in Brickell</label></li>
-              <li><label><input type="checkbox"/> Little Havana food tour</label></li>
-              <li><label><input type="checkbox"/> Day trip to the Florida Keys</label></li>
-              <li><label><input type="checkbox"/> Luxury pool day</label></li>
-              <li><label><input type="checkbox"/> Design District shopping</label></li>
-              <li><label><input type="checkbox"/> Cuban coffee at Versailles</label></li>
-              <li><label><input type="checkbox"/> Boat day on Biscayne Bay</label></li>
-              <li><label><input type="checkbox"/> Night out in South Beach</label></li>
-              <li><label><input type="checkbox"/> Explore Coconut Grove</label></li>
-            </ul>
-            <div class="page-num">01</div>
-          </div>
-
-          <!-- Page 1: Moving -->
-          <div class="page-sheet" id="page-1">
-            <div class="page-header">
-              <span class="page-icon">📦</span>
-              <h2>Moving Checklist</h2>
-              <div class="page-rule"></div>
-            </div>
-            <ul class="checklist">
-              <li><label><input type="checkbox"/> Research Miami neighborhoods</label></li>
-              <li><label><input type="checkbox"/> Set a moving budget</label></li>
-              <li><label><input type="checkbox"/> Find &amp; sign apartment</label></li>
-              <li><label><input type="checkbox"/> Schedule movers</label></li>
-              <li><label><input type="checkbox"/> Declutter &amp; donate</label></li>
-              <li><label><input type="checkbox"/> Pack by category</label></li>
-              <li><label><input type="checkbox"/> Transfer utilities &amp; internet</label></li>
-              <li><label><input type="checkbox"/> Update address (bank, DMV, etc.)</label></li>
-              <li><label><input type="checkbox"/> Set up new home essentials</label></li>
-              <li><label><input type="checkbox"/> Explore neighborhood first week</label></li>
-              <li><label><input type="checkbox"/> Get Florida driver's license</label></li>
-              <li><label><input type="checkbox"/> Find local gym &amp; coffee spot</label></li>
-            </ul>
-            <div class="page-num">02</div>
-          </div>
-
-          <!-- Page 2: Career -->
-          <div class="page-sheet" id="page-2">
-            <div class="page-header">
-              <span class="page-icon">💰</span>
-              <h2>High Ticket Sales</h2>
-              <div class="page-rule"></div>
-            </div>
-            <ul class="checklist">
-              <li><label><input type="checkbox"/> Define my niche &amp; offer</label></li>
-              <li><label><input type="checkbox"/> Study HTS frameworks &amp; scripts</label></li>
-              <li><label><input type="checkbox"/> Build LinkedIn &amp; personal brand</label></li>
-              <li><label><input type="checkbox"/> Find a mentor or program</label></li>
-              <li><label><input type="checkbox"/> Master objection handling</label></li>
-              <li><label><input type="checkbox"/> Build outreach system</label></li>
-              <li><label><input type="checkbox"/> Land first $5k+ client</label></li>
-              <li><label><input type="checkbox"/> Build a referral network</label></li>
-              <li><label><input type="checkbox"/> Hit consistent $10k months</label></li>
-              <li><label><input type="checkbox"/> Scale to $25k months</label></li>
-              <li><label><input type="checkbox"/> Create systems &amp; SOPs</label></li>
-              <li><label><input type="checkbox"/> Build a team</label></li>
-            </ul>
-            <div class="page-num">03</div>
-          </div>
-
-        </div><!-- /page-container -->
-
-        <!-- Nav arrows -->
-        <div class="page-nav">
-          <button class="page-arrow" id="prevArrow" onclick="prevPage()" disabled>&#8249;</button>
-          <div class="page-dots">
-            <span class="dot active" data-i="0"></span>
-            <span class="dot" data-i="1"></span>
-            <span class="dot" data-i="2"></span>
-          </div>
-          <button class="page-arrow" id="nextArrow" onclick="nextPage()">&#8250;</button>
-        </div>
-      </div>
-
-    </div><!-- /book-wrap -->
-  </div><!-- /planner-scene -->
+  </div>
 </div>
 
-<style>
-  /* ── Planner button ── */
-  .planner-btn {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    z-index: 500;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.4rem;
-    background: linear-gradient(135deg, #1a1208, #2d1f0a);
-    border: 1px solid rgba(201,168,76,0.5);
-    color: #e8cb7e;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 0.78rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    cursor: pointer;
-    border-radius: 2px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.1);
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-  }
-  .planner-btn:hover {
-    transform: translateY(-2px);
-    border-color: rgba(201,168,76,0.9);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.6), 0 0 20px rgba(201,168,76,0.15);
-  }
-  .planner-btn-icon { font-size: 1rem; }
-
-  /* ── Overlay ── */
-  .planner-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 900;
-    background: rgba(10,7,2,0.88);
-    backdrop-filter: blur(6px);
-    align-items: center;
-    justify-content: center;
-  }
-  .planner-overlay.open { display: flex; }
-
-  /* ── Book scene (perspective) ── */
-  .planner-scene {
-    perspective: 2000px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* ── Book wrapper ── */
-  .book-wrap {
-    position: relative;
-    display: flex;
-    width: min(860px, 95vw);
-    height: min(560px, 90vh);
-    border-radius: 2px;
-    box-shadow:
-      0 0 0 1px rgba(201,168,76,0.2),
-      0 30px 80px rgba(0,0,0,0.8),
-      -6px 0 20px rgba(0,0,0,0.5);
-    animation: bookOpen 0.6s cubic-bezier(0.22,1,0.36,1) both;
-  }
-  @keyframes bookOpen {
-    from { opacity:0; transform: scale(0.88) rotateX(6deg); }
-    to   { opacity:1; transform: scale(1) rotateX(0deg); }
-  }
-
-  /* ── Close button ── */
-  .book-close {
-    position: absolute;
-    top: -1rem;
-    right: -1rem;
-    z-index: 10;
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    border: 1px solid rgba(201,168,76,0.4);
-    background: #1a1208;
-    color: #e8cb7e;
-    font-size: 0.8rem;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: background 0.2s;
-  }
-  .book-close:hover { background: #2d1f0a; }
-
-  /* ── Left cover page ── */
-  .book-cover-left {
-    width: 38%;
-    height: 100%;
-    background: linear-gradient(160deg, #1c1308 0%, #0e0a04 100%);
-    border-right: 3px solid #0a0703;
-    box-shadow: inset -8px 0 20px rgba(0,0,0,0.5), 2px 0 6px rgba(0,0,0,0.4);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    padding: 2rem 1.5rem;
-    border-radius: 2px 0 0 2px;
-    position: relative;
-    overflow: hidden;
-  }
-  .book-cover-left::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 24px,
-        rgba(201,168,76,0.04) 24px,
-        rgba(201,168,76,0.04) 25px
-      );
-  }
-  .cover-ornament {
-    font-size: 1.2rem;
-    color: rgba(201,168,76,0.4);
-    letter-spacing: 0.5em;
-    margin-bottom: 1rem;
-  }
-  .cover-title {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: clamp(1.4rem, 3vw, 2rem);
-    color: #e8cb7e;
-    line-height: 1.1;
-    text-align: center;
-    margin-bottom: 0.4rem;
-  }
-  .cover-year {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 200;
-    font-size: 0.65rem;
-    letter-spacing: 0.5em;
-    color: rgba(201,168,76,0.5);
-    margin-bottom: 2rem;
-  }
-  .chapter-tabs {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    width: 100%;
-  }
-  .ch-tab {
-    background: transparent;
-    border: 1px solid rgba(201,168,76,0.2);
-    color: rgba(232,203,126,0.7);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 0.5rem 0.8rem;
-    text-align: left;
-    cursor: pointer;
-    border-radius: 1px;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .ch-tab:hover, .ch-tab.active {
-    background: rgba(201,168,76,0.1);
-    border-color: rgba(201,168,76,0.5);
-    color: #e8cb7e;
-  }
-  .ch-icon { font-size: 0.9rem; }
-  .cover-lines {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 2px;
-    background: rgba(201,168,76,0.2);
-    box-shadow: 0 6px 0 rgba(201,168,76,0.15), 0 12px 0 rgba(201,168,76,0.1);
-  }
-
-  /* ── Right side ── */
-  .book-right-side {
-    flex: 1;
-    height: 100%;
-    background: #faf4e6;
-    border-radius: 0 2px 2px 0;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    position: relative;
-  }
-  /* Lined paper feel */
-  .book-right-side::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      transparent,
-      transparent 31px,
-      rgba(180,160,120,0.18) 31px,
-      rgba(180,160,120,0.18) 32px
-    );
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* ── Page container & sheets ── */
-  .page-container {
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-  }
-  .page-sheet {
-    position: absolute;
-    inset: 0;
-    padding: 2rem 2.2rem 1rem;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateX(60px);
-    transition: opacity 0.35s ease, transform 0.35s ease;
-    z-index: 1;
-    overflow-y: auto;
-  }
-  .page-sheet.active {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateX(0);
-    z-index: 2;
-  }
-  .page-sheet.exit-left {
-    opacity: 0;
-    transform: translateX(-60px);
-    z-index: 1;
-  }
-
-  /* Page header */
-  .page-header {
-    margin-bottom: 1.2rem;
-    position: relative;
-    z-index: 1;
-  }
-  .page-icon {
-    font-size: 1.4rem;
-    display: block;
-    margin-bottom: 0.2rem;
-  }
-  .page-header h2 {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
-    color: #2a1a08;
-    font-weight: 400;
-  }
-  .page-rule {
-    height: 1.5px;
-    background: linear-gradient(to right, #c9a84c, transparent);
-    margin-top: 0.5rem;
-    width: 80%;
-  }
-
-  /* Checklist */
-  .checklist {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    position: relative;
-    z-index: 1;
-  }
-  .checklist li label {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.05rem;
-    color: #3a2a10;
-    cursor: pointer;
-    line-height: 1.4;
-    transition: color 0.2s;
-  }
-  .checklist li label:hover { color: #1a1208; }
-  .checklist input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 14px; height: 14px;
-    border: 1.5px solid #c9a84c;
-    border-radius: 2px;
-    flex-shrink: 0;
-    cursor: pointer;
-    position: relative;
-    transition: background 0.2s;
-  }
-  .checklist input[type="checkbox"]:checked {
-    background: #c9a84c;
-  }
-  .checklist input[type="checkbox"]:checked::after {
-    content: '✓';
-    position: absolute;
-    top: -2px;
-    left: 1px;
-    font-size: 10px;
-    color: white;
-    font-weight: bold;
-  }
-  .checklist input[type="checkbox"]:checked + span,
-  .checklist li label:has(input:checked) {
-    text-decoration: line-through;
-    opacity: 0.5;
-  }
-
-  /* Page number */
-  .page-num {
-    position: absolute;
-    bottom: 1rem;
-    right: 1.5rem;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 0.85rem;
-    color: rgba(160,130,80,0.5);
-    z-index: 1;
-  }
-
-  /* ── Page navigation ── */
-  .page-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.6rem 1.2rem;
-    background: rgba(245,237,214,0.8);
-    border-top: 1px solid rgba(180,160,120,0.25);
-    position: relative;
-    z-index: 3;
-  }
-  .page-arrow {
-    background: none;
-    border: 1px solid rgba(180,140,60,0.35);
-    color: #9c6f45;
-    font-size: 1.4rem;
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
-    line-height: 1;
-  }
-  .page-arrow:hover:not(:disabled) {
-    background: rgba(201,168,76,0.15);
-    border-color: #c9a84c;
-    color: #7a4f20;
-  }
-  .page-arrow:disabled { opacity: 0.25; cursor: default; }
-  .page-dots { display: flex; gap: 0.4rem; align-items: center; }
-  .dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: rgba(180,140,60,0.3);
-    transition: background 0.3s, transform 0.3s;
-  }
-  .dot.active {
-    background: #c9a84c;
-    transform: scale(1.3);
-  }
-
-  @media (max-width: 600px) {
-    .book-cover-left { width: 30%; padding: 1rem 0.8rem; }
-    .cover-title { font-size: 1.1rem; }
-    .page-sheet { padding: 1.2rem 1.2rem 1rem; }
-    .checklist li label { font-size: 0.9rem; }
-  }
-</style>
-
 <script>
-  let currentPage = 0;
-  const totalPages = 3;
-  let isAnimating = false;
+/* ══════════════════════════════════════
+   DATA  —  localStorage key: vb_planner
+══════════════════════════════════════ */
+const STORE_KEY = 'vb_planner';
 
-  function openPlanner() {
-    document.getElementById('plannerOverlay').classList.add('open');
-    document.body.style.overflow = 'hidden';
-    updateUI();
+const DEFAULTS = [
+  {
+    icon: '☀️', title: 'Miami Bucket List',
+    items: [
+      { text: 'South Beach sunset walk',      done: false },
+      { text: 'Wynwood Walls art district',   done: false },
+      { text: "Dinner at Joe's Stone Crab",   done: false },
+      { text: 'Rooftop bar in Brickell',      done: false },
+      { text: 'Little Havana food tour',      done: false },
+      { text: 'Day trip to the Florida Keys', done: false },
+      { text: 'Luxury pool day',              done: false },
+      { text: 'Design District shopping',     done: false },
+      { text: 'Cuban coffee at Versailles',   done: false },
+      { text: 'Boat day on Biscayne Bay',     done: false },
+      { text: 'Night out in South Beach',     done: false },
+      { text: 'Explore Coconut Grove',        done: false },
+    ]
+  },
+  {
+    icon: '📦', title: 'Moving Checklist',
+    items: [
+      { text: 'Research Miami neighborhoods',       done: false },
+      { text: 'Set a moving budget',                done: false },
+      { text: 'Find & sign apartment',              done: false },
+      { text: 'Schedule movers',                    done: false },
+      { text: 'Declutter & donate',                 done: false },
+      { text: 'Pack by category',                   done: false },
+      { text: 'Transfer utilities & internet',      done: false },
+      { text: 'Update address (bank, DMV, etc.)',   done: false },
+      { text: 'Set up new home essentials',         done: false },
+      { text: 'Explore neighborhood first week',    done: false },
+      { text: "Get Florida driver's license",       done: false },
+      { text: 'Find local gym & coffee spot',       done: false },
+    ]
+  },
+  {
+    icon: '💰', title: 'High Ticket Sales',
+    items: [
+      { text: 'Define my niche & offer',          done: false },
+      { text: 'Study HTS frameworks & scripts',   done: false },
+      { text: 'Build LinkedIn & personal brand',  done: false },
+      { text: 'Find a mentor or program',         done: false },
+      { text: 'Master objection handling',        done: false },
+      { text: 'Build outreach system',            done: false },
+      { text: 'Land first $5k+ client',           done: false },
+      { text: 'Build a referral network',         done: false },
+      { text: 'Hit consistent $10k months',       done: false },
+      { text: 'Scale to $25k months',             done: false },
+      { text: 'Create systems & SOPs',            done: false },
+      { text: 'Build a team',                     done: false },
+    ]
   }
-  function closePlanner() {
-    document.getElementById('plannerOverlay').classList.remove('open');
-    document.body.style.overflow = '';
+];
+
+function loadData() {
+  try {
+    const raw = localStorage.getItem(STORE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return JSON.parse(JSON.stringify(DEFAULTS));
+}
+
+function saveData() {
+  localStorage.setItem(STORE_KEY, JSON.stringify(data));
+  showToast();
+}
+
+function showToast() {
+  const t = document.getElementById('savedToast');
+  t.classList.add('show');
+  clearTimeout(showToast._timer);
+  showToast._timer = setTimeout(() => t.classList.remove('show'), 1500);
+}
+
+/* ══════════════════════════════════════
+   STATE
+══════════════════════════════════════ */
+let data = loadData();
+let currentPage = 0;
+let isAnimating = false;
+let emojiTargetPage = null;
+
+/* ══════════════════════════════════════
+   RENDER
+══════════════════════════════════════ */
+function render() {
+  renderTabs();
+  renderPages();
+  renderDots();
+  updateArrows();
+}
+
+function renderTabs() {
+  const nav = document.getElementById('chapterTabs');
+  nav.innerHTML = '';
+  data.forEach((page, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'ch-tab' + (i === currentPage ? ' active' : '');
+    btn.innerHTML = `<span>${page.icon}</span><span style="flex:1;text-align:left">${page.title}</span>` +
+      (data.length > 1 ? `<button class="tab-del" onclick="deletePage(event,${i})">✕</button>` : '');
+    btn.onclick = (e) => { if (!e.target.classList.contains('tab-del')) goToPage(i); };
+    nav.appendChild(btn);
+  });
+}
+
+function renderPages() {
+  const container = document.getElementById('pageContainer');
+  // Remove stale sheets
+  container.querySelectorAll('.page-sheet').forEach(el => el.remove());
+  data.forEach((page, pi) => {
+    const sheet = document.createElement('div');
+    sheet.className = 'page-sheet' + (pi === currentPage ? ' active' : '');
+    sheet.id = 'page-' + pi;
+
+    sheet.innerHTML = `
+      <div class="page-header">
+        <span class="page-icon" title="Change icon" onclick="openEmojiPicker(event,${pi})">${page.icon}</span>
+        <input class="page-title-input" value="${escHtml(page.title)}"
+          oninput="updateTitle(${pi}, this.value)"
+          onblur="saveData()"
+          placeholder="Page title…" />
+      </div>
+      <div class="page-rule"></div>
+      <ul class="checklist" id="list-${pi}"></ul>
+      <div class="add-item-row">
+        <button class="add-item-btn" onclick="addItem(${pi})">＋ add item</button>
+      </div>
+      <div class="page-num">${String(pi+1).padStart(2,'0')}</div>
+    `;
+    container.appendChild(sheet);
+    renderItems(pi);
+  });
+}
+
+function renderItems(pi) {
+  const ul = document.getElementById('list-' + pi);
+  if (!ul) return;
+  ul.innerHTML = '';
+  data[pi].items.forEach((item, ii) => {
+    const li = document.createElement('li');
+    li.className = 'checklist-item';
+    li.innerHTML = `
+      <input type="checkbox" ${item.done ? 'checked' : ''}
+        onchange="toggleItem(${pi},${ii},this.checked)" />
+      <input class="item-text ${item.done ? 'done' : ''}" value="${escHtml(item.text)}"
+        oninput="updateItem(${pi},${ii},this.value)"
+        onblur="saveData()"
+        placeholder="Write something…" />
+      <button class="item-del" onclick="deleteItem(${pi},${ii})">✕</button>
+    `;
+    ul.appendChild(li);
+  });
+}
+
+function renderDots() {
+  const dots = document.getElementById('pageDots');
+  dots.innerHTML = '';
+  data.forEach((_, i) => {
+    const d = document.createElement('span');
+    d.className = 'dot' + (i === currentPage ? ' active' : '');
+    d.onclick = () => goToPage(i);
+    dots.appendChild(d);
+  });
+}
+
+function updateArrows() {
+  document.getElementById('prevArrow').disabled = currentPage === 0;
+  document.getElementById('nextArrow').disabled = currentPage === data.length - 1;
+}
+
+/* ══════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════ */
+function goToPage(idx) {
+  if (idx === currentPage || isAnimating) return;
+  flipTo(idx > currentPage ? 'next' : 'prev', idx);
+}
+function nextPage() { if (currentPage < data.length - 1) goToPage(currentPage + 1); }
+function prevPage() { if (currentPage > 0) goToPage(currentPage - 1); }
+
+function flipTo(dir, targetIdx) {
+  isAnimating = true;
+  const cur = document.getElementById('page-' + currentPage);
+  const nxt = document.getElementById('page-' + targetIdx);
+
+  nxt.style.transition = 'none';
+  nxt.style.transform = dir === 'next' ? 'translateX(50px)' : 'translateX(-50px)';
+  nxt.style.opacity = '0';
+  nxt.classList.remove('active','exit');
+  nxt.offsetHeight; // reflow
+
+  cur.classList.add('exit');
+  cur.classList.remove('active');
+
+  nxt.style.transition = '';
+  nxt.classList.add('active');
+
+  currentPage = targetIdx;
+  renderTabs();
+  renderDots();
+  updateArrows();
+
+  setTimeout(() => {
+    cur.classList.remove('exit');
+    cur.style.transform = '';
+    cur.style.opacity = '';
+    cur.style.transition = '';
+    isAnimating = false;
+  }, 350);
+}
+
+/* ══════════════════════════════════════
+   DATA MUTATIONS
+══════════════════════════════════════ */
+function updateTitle(pi, val) {
+  data[pi].title = val;
+  // update tab label live
+  const tabs = document.getElementById('chapterTabs').querySelectorAll('.ch-tab');
+  if (tabs[pi]) {
+    const span = tabs[pi].querySelectorAll('span')[1];
+    if (span) span.textContent = val;
   }
-  function closePlannerOutside(e) {
-    if (e.target === document.getElementById('plannerOverlay')) closePlanner();
+}
+
+function toggleItem(pi, ii, checked) {
+  data[pi].items[ii].done = checked;
+  const inputs = document.querySelectorAll(`#list-${pi} .item-text`);
+  if (inputs[ii]) inputs[ii].classList.toggle('done', checked);
+  saveData();
+}
+
+function updateItem(pi, ii, val) {
+  data[pi].items[ii].text = val;
+}
+
+function addItem(pi) {
+  data[pi].items.push({ text: '', done: false });
+  saveData();
+  renderItems(pi);
+  // focus the new input
+  const ul = document.getElementById('list-' + pi);
+  if (ul) {
+    const inputs = ul.querySelectorAll('.item-text');
+    if (inputs.length) inputs[inputs.length - 1].focus();
   }
+}
 
-  function goToPage(idx) {
-    if (idx === currentPage || isAnimating) return;
-    flipTo(idx > currentPage ? 'next' : 'prev', idx);
+function deleteItem(pi, ii) {
+  data[pi].items.splice(ii, 1);
+  saveData();
+  renderItems(pi);
+}
+
+function addPage() {
+  data.push({ icon: '⭐', title: 'New Page', items: [{ text: '', done: false }] });
+  saveData();
+  const newIdx = data.length - 1;
+  render();
+  // Animate to new page
+  const nxt = document.getElementById('page-' + newIdx);
+  if (nxt) {
+    nxt.style.transition = 'none';
+    nxt.style.transform = 'translateX(50px)';
+    nxt.style.opacity = '0';
+    nxt.offsetHeight;
+    nxt.style.transition = '';
   }
+  document.querySelectorAll('.page-sheet.active').forEach(s => {
+    s.classList.remove('active');
+    s.classList.add('exit');
+    setTimeout(() => s.classList.remove('exit'), 350);
+  });
+  if (nxt) nxt.classList.add('active');
+  currentPage = newIdx;
+  renderTabs(); renderDots(); updateArrows();
+  // focus title
+  setTimeout(() => {
+    const ti = document.querySelector('#page-' + newIdx + ' .page-title-input');
+    if (ti) { ti.focus(); ti.select(); }
+  }, 100);
+}
 
-  function nextPage() {
-    if (currentPage >= totalPages - 1 || isAnimating) return;
-    flipTo('next', currentPage + 1);
-  }
-  function prevPage() {
-    if (currentPage <= 0 || isAnimating) return;
-    flipTo('prev', currentPage - 1);
-  }
+function deletePage(e, pi) {
+  e.stopPropagation();
+  if (data.length <= 1) return;
+  data.splice(pi, 1);
+  if (currentPage >= data.length) currentPage = data.length - 1;
+  saveData();
+  render();
+}
 
-  function flipTo(dir, targetIdx) {
-    isAnimating = true;
-    const current = document.getElementById('page-' + currentPage);
-    const next = document.getElementById('page-' + targetIdx);
+/* ══════════════════════════════════════
+   EMOJI PICKER
+══════════════════════════════════════ */
+function openEmojiPicker(e, pi) {
+  e.stopPropagation();
+  emojiTargetPage = pi;
+  const picker = document.getElementById('emojiPicker');
+  picker.classList.add('open');
+  picker.style.top = (e.clientY + 8) + 'px';
+  picker.style.left = (e.clientX + 8) + 'px';
+}
 
-    // Prep incoming page off-screen
-    next.style.transition = 'none';
-    next.style.transform = dir === 'next' ? 'translateX(60px)' : 'translateX(-60px)';
-    next.style.opacity = '0';
-    next.classList.remove('active', 'exit-left');
-
-    // Force reflow
-    next.offsetHeight;
-
-    // Exit current
-    current.style.transition = '';
-    current.classList.remove('active');
-    current.classList.add(dir === 'next' ? 'exit-left' : '');
-    if (dir === 'prev') {
-      current.style.transform = 'translateX(60px)';
-      current.style.opacity = '0';
+document.getElementById('emojiPicker').querySelectorAll('.emoji-opt').forEach(opt => {
+  opt.addEventListener('click', () => {
+    if (emojiTargetPage !== null) {
+      data[emojiTargetPage].icon = opt.textContent;
+      saveData();
+      render();
     }
+    document.getElementById('emojiPicker').classList.remove('open');
+    emojiTargetPage = null;
+  });
+});
 
-    // Animate in new
-    next.style.transition = '';
-    next.classList.add('active');
+document.addEventListener('click', (e) => {
+  const picker = document.getElementById('emojiPicker');
+  if (!picker.contains(e.target)) picker.classList.remove('open');
+});
 
-    currentPage = targetIdx;
-    updateUI();
+/* ══════════════════════════════════════
+   MODAL OPEN / CLOSE
+══════════════════════════════════════ */
+function openPlanner() {
+  document.getElementById('plannerOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  render();
+}
+function closePlanner() {
+  document.getElementById('plannerOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closePlannerOutside(e) {
+  if (e.target === document.getElementById('plannerOverlay')) closePlanner();
+}
 
-    setTimeout(() => {
-      current.classList.remove('exit-left');
-      current.style.transform = '';
-      current.style.opacity = '';
-      current.style.transition = '';
-      isAnimating = false;
-    }, 400);
-  }
-
-  function updateUI() {
-    // Arrows
-    document.getElementById('prevArrow').disabled = currentPage === 0;
-    document.getElementById('nextArrow').disabled = currentPage === totalPages - 1;
-
-    // Dots
-    document.querySelectorAll('.dot').forEach((d, i) => {
-      d.classList.toggle('active', i === currentPage);
-    });
-
-    // Chapter tabs
-    document.querySelectorAll('.ch-tab').forEach((t, i) => {
-      t.classList.toggle('active', i === currentPage);
-    });
-  }
+/* ══════════════════════════════════════
+   UTILS
+══════════════════════════════════════ */
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
 </script>
 
 </body>
