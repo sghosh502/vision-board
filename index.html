@@ -310,6 +310,116 @@
        PLANNER STYLES
     ════════════════════════════════ */
 
+    /* ── Cloud sync button ── */
+    .sync-btn {
+      position: fixed;
+      bottom: 2rem; right: 11rem;
+      z-index: 500;
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(201,168,76,0.4);
+      background: linear-gradient(135deg, #1a1208, #2d1f0a);
+      color: #e8cb7e;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.45);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .sync-btn:hover { transform: translateY(-2px); border-color: rgba(201,168,76,0.8); }
+    .sync-btn .sync-dot {
+      position: absolute; top: 2px; right: 2px;
+      width: 8px; height: 8px; border-radius: 50%;
+      border: 1.5px solid #1a1208;
+      background: rgba(201,168,76,0.3);
+      transition: background 0.3s;
+    }
+    .sync-btn .sync-dot.ok     { background: #4caf50; }
+    .sync-btn .sync-dot.busy   { background: #e8cb7e; animation: pulse 1s infinite; }
+    .sync-btn .sync-dot.error  { background: #e74c3c; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* ── Sync setup modal ── */
+    .sync-modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1200;
+      background: rgba(10,7,2,0.82); backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+    }
+    .sync-modal-overlay.open { display: flex; }
+    .sync-modal {
+      background: #1a1208;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 4px;
+      padding: 2rem 2.2rem;
+      width: min(420px, 92vw);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+      position: relative;
+    }
+    .sync-modal h2 {
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-size: 1.4rem;
+      color: #e8cb7e; margin-bottom: 0.4rem;
+    }
+    .sync-modal p {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem; font-weight: 300;
+      color: rgba(232,203,126,0.65);
+      line-height: 1.7; margin-bottom: 1.2rem;
+    }
+    .sync-modal a {
+      color: #c9a84c; text-underline-offset: 3px;
+    }
+    .sync-modal-close {
+      position: absolute; top: 0.8rem; right: 0.8rem;
+      background: none; border: none; color: rgba(201,168,76,0.5);
+      font-size: 0.9rem; cursor: pointer;
+    }
+    .sync-input {
+      width: 100%; padding: 0.65rem 0.9rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 2px; outline: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.75rem; font-weight: 300;
+      color: #e8cb7e; letter-spacing: 0.04em;
+      margin-bottom: 0.9rem;
+      transition: border-color 0.2s;
+    }
+    .sync-input:focus { border-color: rgba(201,168,76,0.6); }
+    .sync-input::placeholder { color: rgba(201,168,76,0.3); }
+    .sync-submit-btn {
+      width: 100%; padding: 0.7rem;
+      background: linear-gradient(135deg, #c9a84c, #e8cb7e);
+      border: none; border-radius: 2px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.72rem; font-weight: 400;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: #1a1208; cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .sync-submit-btn:hover { opacity: 0.88; }
+    .sync-submit-btn:disabled { opacity: 0.45; cursor: default; }
+    .sync-disconnect {
+      display: block; text-align: center; margin-top: 0.8rem;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem; font-weight: 300;
+      color: rgba(201,168,76,0.4);
+      cursor: pointer; letter-spacing: 0.1em;
+      background: none; border: none; width: 100%;
+    }
+    .sync-disconnect:hover { color: rgba(201,168,76,0.7); }
+    .sync-status-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.68rem; font-weight: 300;
+      text-align: center; margin-top: 0.6rem;
+      min-height: 1rem;
+      color: rgba(201,168,76,0.6);
+    }
+    .sync-status-text.err { color: #e74c3c; }
+    @media (max-width: 600px) {
+      .sync-btn { bottom: 1rem; right: 8rem; width: 34px; height: 34px; font-size: 0.9rem; }
+    }
+
     /* Floating button */
     .planner-btn {
       position: fixed;
@@ -893,10 +1003,33 @@
 
 <footer>made with intention &nbsp;✦&nbsp; 2026</footer>
 
+<!-- ── SYNC BUTTON ── -->
+<button class="sync-btn" id="syncBtn" onclick="openSyncSetup()" title="Cloud sync settings">
+  ☁
+  <span class="sync-dot" id="syncDot"></span>
+</button>
+
 <!-- ── PLANNER BUTTON ── -->
 <button class="planner-btn" onclick="openPlanner()">
   <span>📖</span><span>My Planner</span>
 </button>
+
+<!-- ── SYNC SETUP MODAL ── -->
+<div class="sync-modal-overlay" id="syncModalOverlay" onclick="closeSyncOutside(event)">
+  <div class="sync-modal">
+    <button class="sync-modal-close" onclick="closeSyncSetup()">✕</button>
+    <h2>Cloud Sync</h2>
+    <p>
+      Keep your planner identical on every device — phone, laptop, anywhere.<br><br>
+      Paste a <a href="https://github.com/settings/tokens/new?scopes=gist&description=VisionBoardSync" target="_blank">GitHub token</a> with <strong>gist</strong> scope. Your data is saved to a private Gist only you can see. One-time setup.
+    </p>
+    <input class="sync-input" id="ghTokenInput" type="password"
+      placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false" />
+    <button class="sync-submit-btn" id="syncSubmitBtn" onclick="submitSyncSetup()">Connect &amp; Sync</button>
+    <div class="sync-status-text" id="syncStatusText"></div>
+    <button class="sync-disconnect" id="syncDisconnectBtn" onclick="disconnectSync()" style="display:none">Disconnect cloud sync</button>
+  </div>
+</div>
 <div class="saved-toast" id="savedToast">Saved ✓</div>
 
 <!-- ── EMOJI PICKER ── -->
@@ -1032,6 +1165,7 @@ function saveData() {
     localStorage.setItem(STORE_KEY, JSON.stringify(data));
   } catch(e) {}
   showToast();
+  saveToCloud();
 }
 
 // Save before tab closes / navigates away
@@ -1301,6 +1435,205 @@ function escHtml(str) {
     .replace(/>/g,'&gt;')
     .replace(/"/g,'&quot;');
 }
+
+/* ══════════════════════════════════════
+   CLOUD SYNC  —  GitHub Gist backend
+══════════════════════════════════════ */
+const GIST_TOKEN_KEY = 'vb_gh_token';
+const GIST_ID_KEY    = 'vb_gh_gist_id';
+const GIST_FILENAME  = 'vision-board-planner.json';
+
+function getGistCreds() {
+  return {
+    token:  localStorage.getItem(GIST_TOKEN_KEY),
+    gistId: localStorage.getItem(GIST_ID_KEY)
+  };
+}
+
+function setDot(state) {
+  const dot = document.getElementById('syncDot');
+  if (!dot) return;
+  dot.className = 'sync-dot' + (state ? ' ' + state : '');
+  document.getElementById('syncBtn').title =
+    state === 'ok'    ? 'Synced to cloud ✓'  :
+    state === 'busy'  ? 'Syncing…'            :
+    state === 'error' ? 'Sync error — tap to check settings' :
+    'Set up cloud sync';
+}
+
+async function loadFromCloud() {
+  const { token, gistId } = getGistCreds();
+  if (!token || !gistId) return null;
+  try {
+    setDot('busy');
+    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+      headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' }
+    });
+    if (!res.ok) { setDot('error'); return null; }
+    const gist = await res.json();
+    const content = gist.files?.[GIST_FILENAME]?.content;
+    if (!content) { setDot('error'); return null; }
+    const parsed = JSON.parse(content);
+    if (Array.isArray(parsed) && parsed.length > 0 &&
+        parsed.every(p => p && typeof p.title === 'string' && Array.isArray(p.items))) {
+      parsed.forEach(p => {
+        if (!p.icon) p.icon = '⭐';
+        p.items = p.items.map(it => (it && typeof it.text === 'string') ? it : { text: '', done: false });
+      });
+      setDot('ok');
+      return parsed;
+    }
+    setDot('error'); return null;
+  } catch(e) { setDot('error'); return null; }
+}
+
+let _cloudSaveTimer = null;
+async function saveToCloud() {
+  const { token, gistId } = getGistCreds();
+  if (!token || !gistId) return;
+  clearTimeout(_cloudSaveTimer);
+  _cloudSaveTimer = setTimeout(async () => {
+    try {
+      setDot('busy');
+      const snapshot = JSON.parse(JSON.stringify(data));
+      const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Accept': 'application/vnd.github+json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ files: { [GIST_FILENAME]: { content: JSON.stringify(snapshot) } } })
+      });
+      setDot(res.ok ? 'ok' : 'error');
+    } catch(e) { setDot('error'); }
+  }, 1200);
+}
+
+async function findOrCreateGist(token, localData) {
+  // Look for existing vision board gist
+  const listRes = await fetch('https://api.github.com/gists?per_page=100', {
+    headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' }
+  });
+  if (listRes.ok) {
+    const gists = await listRes.json();
+    const existing = gists.find(g => g.files?.[GIST_FILENAME]);
+    if (existing) { localStorage.setItem(GIST_ID_KEY, existing.id); return { id: existing.id, isNew: false }; }
+  }
+  // Create new private gist with current local data
+  const createRes = await fetch('https://api.github.com/gists', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/vnd.github+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      description: 'Vision Board Planner Data',
+      public: false,
+      files: { [GIST_FILENAME]: { content: JSON.stringify(localData) } }
+    })
+  });
+  if (!createRes.ok) return null;
+  const created = await createRes.json();
+  localStorage.setItem(GIST_ID_KEY, created.id);
+  return { id: created.id, isNew: true };
+}
+
+/* Setup modal */
+function openSyncSetup() {
+  const overlay = document.getElementById('syncModalOverlay');
+  overlay.classList.add('open');
+  const { token } = getGistCreds();
+  const inp = document.getElementById('ghTokenInput');
+  const dis = document.getElementById('syncDisconnectBtn');
+  const txt = document.getElementById('syncStatusText');
+  txt.textContent = '';
+  txt.className = 'sync-status-text';
+  if (token) {
+    inp.value = token;
+    dis.style.display = 'block';
+    document.getElementById('syncSubmitBtn').textContent = 'Re-sync';
+  } else {
+    inp.value = '';
+    dis.style.display = 'none';
+    document.getElementById('syncSubmitBtn').textContent = 'Connect & Sync';
+  }
+  document.getElementById('syncSubmitBtn').disabled = false;
+}
+
+function closeSyncSetup() {
+  document.getElementById('syncModalOverlay').classList.remove('open');
+}
+function closeSyncOutside(e) {
+  if (e.target === document.getElementById('syncModalOverlay')) closeSyncSetup();
+}
+
+async function submitSyncSetup() {
+  const token = document.getElementById('ghTokenInput').value.trim();
+  if (!token) return;
+  const btn = document.getElementById('syncSubmitBtn');
+  const txt = document.getElementById('syncStatusText');
+  btn.textContent = 'Connecting…'; btn.disabled = true;
+  txt.textContent = ''; txt.className = 'sync-status-text';
+
+  try {
+    // Verify token
+    const verifyRes = await fetch('https://api.github.com/user', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (!verifyRes.ok) throw new Error('Token invalid or missing gist scope');
+    const user = await verifyRes.json();
+
+    localStorage.setItem(GIST_TOKEN_KEY, token);
+    btn.textContent = 'Finding / creating gist…';
+
+    const result = await findOrCreateGist(token, data);
+    if (!result) throw new Error('Could not create gist — does token have gist scope?');
+
+    if (!result.isNew) {
+      // Pull cloud data
+      btn.textContent = 'Pulling your data…';
+      const cloudData = await loadFromCloud();
+      if (cloudData) {
+        data = cloudData;
+        localStorage.setItem(STORE_KEY, JSON.stringify(data));
+        if (document.getElementById('plannerOverlay').classList.contains('open')) render();
+      }
+    }
+
+    txt.textContent = `✓ Connected as @${user.login} — syncing on every save`;
+    document.getElementById('syncDisconnectBtn').style.display = 'block';
+    btn.textContent = 'Done!'; btn.disabled = false;
+    setDot('ok');
+    setTimeout(closeSyncSetup, 1800);
+  } catch(e) {
+    txt.textContent = e.message || 'Something went wrong';
+    txt.className = 'sync-status-text err';
+    btn.textContent = 'Try again'; btn.disabled = false;
+    setDot('error');
+  }
+}
+
+function disconnectSync() {
+  if (!confirm('Disconnect cloud sync? Your local data stays, but changes won\'t sync across devices.')) return;
+  localStorage.removeItem(GIST_TOKEN_KEY);
+  localStorage.removeItem(GIST_ID_KEY);
+  setDot('');
+  closeSyncSetup();
+}
+
+/* Auto-load from cloud on page open */
+(async function initCloudSync() {
+  const { token, gistId } = getGistCreds();
+  if (!token) return;
+  if (!gistId) { await findOrCreateGist(token, data); return; }
+  const cloudData = await loadFromCloud();
+  if (cloudData) {
+    data = cloudData;
+    localStorage.setItem(STORE_KEY, JSON.stringify(data));
+  }
+})();
 </script>
 
 </body>
