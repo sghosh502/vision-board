@@ -913,24 +913,27 @@ function renderPages() {
     sheet.className = 'page-sheet' + (pi === currentPage ? ' active' : '');
     sheet.id = 'page-' + pi;
 
-    sheet.innerHTML = `
-      <div class="page-header">
-        <span class="page-icon" title="Change icon" onclick="openEmojiPicker(event,${pi})">${page.icon}</span>
-        <input class="page-title-input" value="${escHtml(page.title)}"
-          oninput="updateTitle(${pi}, this.value)"
-          onblur="saveData()"
-          placeholder="Page title…" />
-      </div>
-      <div class="page-rule"></div>
-      <ul class="checklist" id="list-${pi}"></ul>
-      <div class="add-item-row">
-        <button class="add-item-btn" onclick="addItem(${pi})">＋ add item</button>
-      </div>
-      <div class="page-num">${String(pi+1).padStart(2,'0')}</div>
-    `;
+    sheet.innerHTML = buildSheetHTML(pi, page);
     container.appendChild(sheet);
     renderItems(pi);
   });
+}
+
+function buildSheetHTML(pi, page) {
+  return `
+    <div class="page-header">
+      <span class="page-icon" title="Change icon" onclick="openEmojiPicker(event,${pi})">${page.icon}</span>
+      <input class="page-title-input" value="${escHtml(page.title)}"
+        oninput="updateTitle(${pi}, this.value)"
+        placeholder="Page title…" />
+    </div>
+    <div class="page-rule"></div>
+    <ul class="checklist" id="list-${pi}"></ul>
+    <div class="add-item-row">
+      <button class="add-item-btn" onclick="addItem(${pi})">＋ add item</button>
+    </div>
+    <div class="page-num">${String(pi+1).padStart(2,'0')}</div>
+  `;
 }
 
 function renderItems(pi) {
@@ -945,7 +948,6 @@ function renderItems(pi) {
         onchange="toggleItem(${pi},${ii},this.checked)" />
       <input class="item-text ${item.done ? 'done' : ''}" value="${escHtml(item.text)}"
         oninput="updateItem(${pi},${ii},this.value)"
-        onblur="saveData()"
         placeholder="Write something…" />
       <button class="item-del" onclick="deleteItem(${pi},${ii})">✕</button>
     `;
@@ -1013,9 +1015,15 @@ function flipTo(dir, targetIdx) {
 /* ══════════════════════════════════════
    DATA MUTATIONS
 ══════════════════════════════════════ */
+let _saveTimer = null;
+function debounceSave() {
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(saveData, 800);
+}
+
 function updateTitle(pi, val) {
   data[pi].title = val;
-  // update tab label live
+  debounceSave();
   const tabs = document.getElementById('chapterTabs').querySelectorAll('.ch-tab');
   if (tabs[pi]) {
     const span = tabs[pi].querySelectorAll('span')[1];
@@ -1032,6 +1040,7 @@ function toggleItem(pi, ii, checked) {
 
 function updateItem(pi, ii, val) {
   data[pi].items[ii].text = val;
+  debounceSave();
 }
 
 function addItem(pi) {
@@ -1055,30 +1064,41 @@ function deleteItem(pi, ii) {
 function addPage() {
   data.push({ icon: '⭐', title: 'New Page', items: [{ text: '', done: false }] });
   saveData();
+
+  const prevIdx = currentPage;
   const newIdx = data.length - 1;
-  render();
-  // Animate to new page
-  const nxt = document.getElementById('page-' + newIdx);
-  if (nxt) {
-    nxt.style.transition = 'none';
-    nxt.style.transform = 'translateX(50px)';
-    nxt.style.opacity = '0';
-    nxt.offsetHeight;
-    nxt.style.transition = '';
-  }
-  document.querySelectorAll('.page-sheet.active').forEach(s => {
-    s.classList.remove('active');
-    s.classList.add('exit');
-    setTimeout(() => s.classList.remove('exit'), 350);
-  });
-  if (nxt) nxt.classList.add('active');
   currentPage = newIdx;
-  renderTabs(); renderDots(); updateArrows();
-  // focus title
+
+  // Build new sheet and append directly (no full re-render)
+  const container = document.getElementById('pageContainer');
+  const sheet = document.createElement('div');
+  sheet.className = 'page-sheet'; // starts off-screen per CSS default
+  sheet.id = 'page-' + newIdx;
+  sheet.innerHTML = buildSheetHTML(newIdx, data[newIdx]);
+  container.appendChild(sheet);
+  renderItems(newIdx);
+
+  // Exit old page
+  const oldSheet = document.getElementById('page-' + prevIdx);
+  if (oldSheet) {
+    oldSheet.classList.remove('active');
+    oldSheet.classList.add('exit');
+    setTimeout(() => oldSheet.classList.remove('exit'), 400);
+  }
+
+  // Double rAF ensures initial paint before transition kicks in
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    sheet.classList.add('active');
+  }));
+
+  renderTabs();
+  renderDots();
+  updateArrows();
+
   setTimeout(() => {
-    const ti = document.querySelector('#page-' + newIdx + ' .page-title-input');
-    if (ti) { ti.focus(); ti.select(); }
-  }, 100);
+    const ti = sheet.querySelector('.page-title-input');
+    if (ti) { ti.select(); ti.focus(); }
+  }, 150);
 }
 
 function deletePage(e, pi) {
