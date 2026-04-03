@@ -856,15 +856,40 @@ const DEFAULTS = [
 function loadData() {
   try {
     const raw = localStorage.getItem(STORE_KEY);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      // Validate structure — must be a non-empty array of valid page objects
+      if (Array.isArray(parsed) && parsed.length > 0 &&
+          parsed.every(p => p && typeof p.title === 'string' && Array.isArray(p.items))) {
+        // Ensure every item has the expected shape
+        parsed.forEach(p => {
+          if (!p.icon) p.icon = '⭐';
+          p.items = p.items.map(it =>
+            (it && typeof it.text === 'string')
+              ? it
+              : { text: String(it || ''), done: false }
+          );
+        });
+        return parsed;
+      }
+    }
   } catch(e) {}
+  // Bad / missing data — wipe and start fresh
+  localStorage.removeItem(STORE_KEY);
   return JSON.parse(JSON.stringify(DEFAULTS));
 }
 
 function saveData() {
-  localStorage.setItem(STORE_KEY, JSON.stringify(data));
+  try {
+    localStorage.setItem(STORE_KEY, JSON.stringify(data));
+  } catch(e) {}
   showToast();
 }
+
+// Save before tab closes / navigates away
+window.addEventListener('beforeunload', () => {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(data)); } catch(e) {}
+});
 
 function showToast() {
   const t = document.getElementById('savedToast');
