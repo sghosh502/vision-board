@@ -450,20 +450,18 @@
     .page-container { flex: 1; position: relative; overflow: hidden; }
 
     .page-sheet {
+      display: none;
       position: absolute; inset: 0;
       padding: 1.5rem 2rem 0.5rem;
-      opacity: 0; pointer-events: none;
-      transform: translateX(50px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      z-index: 1;
-      display: flex; flex-direction: column;
+      flex-direction: column;
     }
     .page-sheet.active {
-      opacity: 1; pointer-events: auto;
-      transform: translateX(0); z-index: 2;
+      display: flex;
+      animation: pageSlideIn 0.25s ease;
     }
-    .page-sheet.exit {
-      opacity: 0; transform: translateX(-50px); z-index: 1;
+    @keyframes pageSlideIn {
+      from { opacity: 0; transform: translateX(18px); }
+      to   { opacity: 1; transform: translateX(0); }
     }
 
     /* Page header */
@@ -903,7 +901,6 @@ function showToast() {
 ══════════════════════════════════════ */
 let data = loadData();
 let currentPage = 0;
-let isAnimating = false;
 let emojiTargetPage = null;
 
 /* ══════════════════════════════════════
@@ -1000,42 +997,18 @@ function updateArrows() {
    NAVIGATION
 ══════════════════════════════════════ */
 function goToPage(idx) {
-  if (idx === currentPage || isAnimating) return;
-  flipTo(idx > currentPage ? 'next' : 'prev', idx);
-}
-function nextPage() { if (currentPage < data.length - 1) goToPage(currentPage + 1); }
-function prevPage() { if (currentPage > 0) goToPage(currentPage - 1); }
-
-function flipTo(dir, targetIdx) {
-  isAnimating = true;
+  if (idx === currentPage) return;
   const cur = document.getElementById('page-' + currentPage);
-  const nxt = document.getElementById('page-' + targetIdx);
-
-  nxt.style.transition = 'none';
-  nxt.style.transform = dir === 'next' ? 'translateX(50px)' : 'translateX(-50px)';
-  nxt.style.opacity = '0';
-  nxt.classList.remove('active','exit');
-  nxt.offsetHeight; // reflow
-
-  cur.classList.add('exit');
-  cur.classList.remove('active');
-
-  nxt.style.transition = '';
-  nxt.classList.add('active');
-
-  currentPage = targetIdx;
+  if (cur) cur.classList.remove('active');
+  currentPage = idx;
+  const nxt = document.getElementById('page-' + currentPage);
+  if (nxt) nxt.classList.add('active');
   renderTabs();
   renderDots();
   updateArrows();
-
-  setTimeout(() => {
-    cur.classList.remove('exit');
-    cur.style.transform = '';
-    cur.style.opacity = '';
-    cur.style.transition = '';
-    isAnimating = false;
-  }, 350);
 }
+function nextPage() { if (currentPage < data.length - 1) goToPage(currentPage + 1); }
+function prevPage() { if (currentPage > 0) goToPage(currentPage - 1); }
 
 /* ══════════════════════════════════════
    DATA MUTATIONS
@@ -1090,40 +1063,28 @@ function addPage() {
   data.push({ icon: '⭐', title: 'New Page', items: [{ text: '', done: false }] });
   saveData();
 
-  const prevIdx = currentPage;
   const newIdx = data.length - 1;
-  currentPage = newIdx;
 
-  // Build new sheet and append directly (no full re-render)
+  // Hide current page
+  const oldSheet = document.getElementById('page-' + currentPage);
+  if (oldSheet) oldSheet.classList.remove('active');
+
+  // Build and show new sheet
   const container = document.getElementById('pageContainer');
   const sheet = document.createElement('div');
-  sheet.className = 'page-sheet'; // starts off-screen per CSS default
+  sheet.className = 'page-sheet active';
   sheet.id = 'page-' + newIdx;
   sheet.innerHTML = buildSheetHTML(newIdx, data[newIdx]);
   container.appendChild(sheet);
   renderItems(newIdx);
 
-  // Exit old page
-  const oldSheet = document.getElementById('page-' + prevIdx);
-  if (oldSheet) {
-    oldSheet.classList.remove('active');
-    oldSheet.classList.add('exit');
-    setTimeout(() => oldSheet.classList.remove('exit'), 400);
-  }
-
-  // Double rAF ensures initial paint before transition kicks in
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    sheet.classList.add('active');
-  }));
-
+  currentPage = newIdx;
   renderTabs();
   renderDots();
   updateArrows();
 
-  setTimeout(() => {
-    const ti = sheet.querySelector('.page-title-input');
-    if (ti) { ti.select(); ti.focus(); }
-  }, 150);
+  const ti = sheet.querySelector('.page-title-input');
+  if (ti) ti.focus();
 }
 
 function deletePage(e, pi) {
