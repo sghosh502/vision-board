@@ -481,5 +481,601 @@
   made with intention &nbsp;✦&nbsp; 2026
 </footer>
 
+<!-- ── PLANNER BUTTON ── -->
+<button class="planner-btn" onclick="openPlanner()">
+  <span class="planner-btn-icon">📖</span>
+  <span>My Planner</span>
+</button>
+
+<!-- ── PLANNER MODAL ── -->
+<div class="planner-overlay" id="plannerOverlay" onclick="closePlannerOutside(event)">
+  <div class="planner-scene">
+
+    <!-- Book wrapper -->
+    <div class="book-wrap" id="bookWrap">
+
+      <!-- Close -->
+      <button class="book-close" onclick="closePlanner()">✕</button>
+
+      <!-- Left cover page -->
+      <div class="book-cover-left">
+        <div class="cover-ornament">✦</div>
+        <div class="cover-title">
+          <span>my</span>
+          <span>planner</span>
+        </div>
+        <div class="cover-year">2026</div>
+        <nav class="chapter-tabs">
+          <button class="ch-tab" onclick="goToPage(0)" data-page="0">
+            <span class="ch-icon">☀️</span> Miami
+          </button>
+          <button class="ch-tab" onclick="goToPage(1)" data-page="1">
+            <span class="ch-icon">📦</span> Moving
+          </button>
+          <button class="ch-tab" onclick="goToPage(2)" data-page="2">
+            <span class="ch-icon">💰</span> Career
+          </button>
+        </nav>
+        <div class="cover-lines"></div>
+      </div>
+
+      <!-- Right page (content) -->
+      <div class="book-right-side">
+        <div class="page-container" id="pageContainer">
+
+          <!-- Page 0: Miami -->
+          <div class="page-sheet active" id="page-0">
+            <div class="page-header">
+              <span class="page-icon">☀️</span>
+              <h2>Miami Bucket List</h2>
+              <div class="page-rule"></div>
+            </div>
+            <ul class="checklist">
+              <li><label><input type="checkbox"/> South Beach sunset walk</label></li>
+              <li><label><input type="checkbox"/> Wynwood Walls art district</label></li>
+              <li><label><input type="checkbox"/> Dinner at Joe's Stone Crab</label></li>
+              <li><label><input type="checkbox"/> Rooftop bar in Brickell</label></li>
+              <li><label><input type="checkbox"/> Little Havana food tour</label></li>
+              <li><label><input type="checkbox"/> Day trip to the Florida Keys</label></li>
+              <li><label><input type="checkbox"/> Luxury pool day</label></li>
+              <li><label><input type="checkbox"/> Design District shopping</label></li>
+              <li><label><input type="checkbox"/> Cuban coffee at Versailles</label></li>
+              <li><label><input type="checkbox"/> Boat day on Biscayne Bay</label></li>
+              <li><label><input type="checkbox"/> Night out in South Beach</label></li>
+              <li><label><input type="checkbox"/> Explore Coconut Grove</label></li>
+            </ul>
+            <div class="page-num">01</div>
+          </div>
+
+          <!-- Page 1: Moving -->
+          <div class="page-sheet" id="page-1">
+            <div class="page-header">
+              <span class="page-icon">📦</span>
+              <h2>Moving Checklist</h2>
+              <div class="page-rule"></div>
+            </div>
+            <ul class="checklist">
+              <li><label><input type="checkbox"/> Research Miami neighborhoods</label></li>
+              <li><label><input type="checkbox"/> Set a moving budget</label></li>
+              <li><label><input type="checkbox"/> Find &amp; sign apartment</label></li>
+              <li><label><input type="checkbox"/> Schedule movers</label></li>
+              <li><label><input type="checkbox"/> Declutter &amp; donate</label></li>
+              <li><label><input type="checkbox"/> Pack by category</label></li>
+              <li><label><input type="checkbox"/> Transfer utilities &amp; internet</label></li>
+              <li><label><input type="checkbox"/> Update address (bank, DMV, etc.)</label></li>
+              <li><label><input type="checkbox"/> Set up new home essentials</label></li>
+              <li><label><input type="checkbox"/> Explore neighborhood first week</label></li>
+              <li><label><input type="checkbox"/> Get Florida driver's license</label></li>
+              <li><label><input type="checkbox"/> Find local gym &amp; coffee spot</label></li>
+            </ul>
+            <div class="page-num">02</div>
+          </div>
+
+          <!-- Page 2: Career -->
+          <div class="page-sheet" id="page-2">
+            <div class="page-header">
+              <span class="page-icon">💰</span>
+              <h2>High Ticket Sales</h2>
+              <div class="page-rule"></div>
+            </div>
+            <ul class="checklist">
+              <li><label><input type="checkbox"/> Define my niche &amp; offer</label></li>
+              <li><label><input type="checkbox"/> Study HTS frameworks &amp; scripts</label></li>
+              <li><label><input type="checkbox"/> Build LinkedIn &amp; personal brand</label></li>
+              <li><label><input type="checkbox"/> Find a mentor or program</label></li>
+              <li><label><input type="checkbox"/> Master objection handling</label></li>
+              <li><label><input type="checkbox"/> Build outreach system</label></li>
+              <li><label><input type="checkbox"/> Land first $5k+ client</label></li>
+              <li><label><input type="checkbox"/> Build a referral network</label></li>
+              <li><label><input type="checkbox"/> Hit consistent $10k months</label></li>
+              <li><label><input type="checkbox"/> Scale to $25k months</label></li>
+              <li><label><input type="checkbox"/> Create systems &amp; SOPs</label></li>
+              <li><label><input type="checkbox"/> Build a team</label></li>
+            </ul>
+            <div class="page-num">03</div>
+          </div>
+
+        </div><!-- /page-container -->
+
+        <!-- Nav arrows -->
+        <div class="page-nav">
+          <button class="page-arrow" id="prevArrow" onclick="prevPage()" disabled>&#8249;</button>
+          <div class="page-dots">
+            <span class="dot active" data-i="0"></span>
+            <span class="dot" data-i="1"></span>
+            <span class="dot" data-i="2"></span>
+          </div>
+          <button class="page-arrow" id="nextArrow" onclick="nextPage()">&#8250;</button>
+        </div>
+      </div>
+
+    </div><!-- /book-wrap -->
+  </div><!-- /planner-scene -->
+</div>
+
+<style>
+  /* ── Planner button ── */
+  .planner-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.4rem;
+    background: linear-gradient(135deg, #1a1208, #2d1f0a);
+    border: 1px solid rgba(201,168,76,0.5);
+    color: #e8cb7e;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.1);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .planner-btn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(201,168,76,0.9);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.6), 0 0 20px rgba(201,168,76,0.15);
+  }
+  .planner-btn-icon { font-size: 1rem; }
+
+  /* ── Overlay ── */
+  .planner-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    background: rgba(10,7,2,0.88);
+    backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+  }
+  .planner-overlay.open { display: flex; }
+
+  /* ── Book scene (perspective) ── */
+  .planner-scene {
+    perspective: 2000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Book wrapper ── */
+  .book-wrap {
+    position: relative;
+    display: flex;
+    width: min(860px, 95vw);
+    height: min(560px, 90vh);
+    border-radius: 2px;
+    box-shadow:
+      0 0 0 1px rgba(201,168,76,0.2),
+      0 30px 80px rgba(0,0,0,0.8),
+      -6px 0 20px rgba(0,0,0,0.5);
+    animation: bookOpen 0.6s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  @keyframes bookOpen {
+    from { opacity:0; transform: scale(0.88) rotateX(6deg); }
+    to   { opacity:1; transform: scale(1) rotateX(0deg); }
+  }
+
+  /* ── Close button ── */
+  .book-close {
+    position: absolute;
+    top: -1rem;
+    right: -1rem;
+    z-index: 10;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.4);
+    background: #1a1208;
+    color: #e8cb7e;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .book-close:hover { background: #2d1f0a; }
+
+  /* ── Left cover page ── */
+  .book-cover-left {
+    width: 38%;
+    height: 100%;
+    background: linear-gradient(160deg, #1c1308 0%, #0e0a04 100%);
+    border-right: 3px solid #0a0703;
+    box-shadow: inset -8px 0 20px rgba(0,0,0,0.5), 2px 0 6px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 2rem 1.5rem;
+    border-radius: 2px 0 0 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .book-cover-left::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 24px,
+        rgba(201,168,76,0.04) 24px,
+        rgba(201,168,76,0.04) 25px
+      );
+  }
+  .cover-ornament {
+    font-size: 1.2rem;
+    color: rgba(201,168,76,0.4);
+    letter-spacing: 0.5em;
+    margin-bottom: 1rem;
+  }
+  .cover-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: #e8cb7e;
+    line-height: 1.1;
+    text-align: center;
+    margin-bottom: 0.4rem;
+  }
+  .cover-year {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    font-size: 0.65rem;
+    letter-spacing: 0.5em;
+    color: rgba(201,168,76,0.5);
+    margin-bottom: 2rem;
+  }
+  .chapter-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .ch-tab {
+    background: transparent;
+    border: 1px solid rgba(201,168,76,0.2);
+    color: rgba(232,203,126,0.7);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.5rem 0.8rem;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 1px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .ch-tab:hover, .ch-tab.active {
+    background: rgba(201,168,76,0.1);
+    border-color: rgba(201,168,76,0.5);
+    color: #e8cb7e;
+  }
+  .ch-icon { font-size: 0.9rem; }
+  .cover-lines {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: rgba(201,168,76,0.2);
+    box-shadow: 0 6px 0 rgba(201,168,76,0.15), 0 12px 0 rgba(201,168,76,0.1);
+  }
+
+  /* ── Right side ── */
+  .book-right-side {
+    flex: 1;
+    height: 100%;
+    background: #faf4e6;
+    border-radius: 0 2px 2px 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+  /* Lined paper feel */
+  .book-right-side::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      transparent,
+      transparent 31px,
+      rgba(180,160,120,0.18) 31px,
+      rgba(180,160,120,0.18) 32px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Page container & sheets ── */
+  .page-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-sheet {
+    position: absolute;
+    inset: 0;
+    padding: 2rem 2.2rem 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(60px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    z-index: 1;
+    overflow-y: auto;
+  }
+  .page-sheet.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+    z-index: 2;
+  }
+  .page-sheet.exit-left {
+    opacity: 0;
+    transform: translateX(-60px);
+    z-index: 1;
+  }
+
+  /* Page header */
+  .page-header {
+    margin-bottom: 1.2rem;
+    position: relative;
+    z-index: 1;
+  }
+  .page-icon {
+    font-size: 1.4rem;
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+  .page-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+    color: #2a1a08;
+    font-weight: 400;
+  }
+  .page-rule {
+    height: 1.5px;
+    background: linear-gradient(to right, #c9a84c, transparent);
+    margin-top: 0.5rem;
+    width: 80%;
+  }
+
+  /* Checklist */
+  .checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .checklist li label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    color: #3a2a10;
+    cursor: pointer;
+    line-height: 1.4;
+    transition: color 0.2s;
+  }
+  .checklist li label:hover { color: #1a1208; }
+  .checklist input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px; height: 14px;
+    border: 1.5px solid #c9a84c;
+    border-radius: 2px;
+    flex-shrink: 0;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .checklist input[type="checkbox"]:checked {
+    background: #c9a84c;
+  }
+  .checklist input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: -2px;
+    left: 1px;
+    font-size: 10px;
+    color: white;
+    font-weight: bold;
+  }
+  .checklist input[type="checkbox"]:checked + span,
+  .checklist li label:has(input:checked) {
+    text-decoration: line-through;
+    opacity: 0.5;
+  }
+
+  /* Page number */
+  .page-num {
+    position: absolute;
+    bottom: 1rem;
+    right: 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: rgba(160,130,80,0.5);
+    z-index: 1;
+  }
+
+  /* ── Page navigation ── */
+  .page-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 1.2rem;
+    background: rgba(245,237,214,0.8);
+    border-top: 1px solid rgba(180,160,120,0.25);
+    position: relative;
+    z-index: 3;
+  }
+  .page-arrow {
+    background: none;
+    border: 1px solid rgba(180,140,60,0.35);
+    color: #9c6f45;
+    font-size: 1.4rem;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    line-height: 1;
+  }
+  .page-arrow:hover:not(:disabled) {
+    background: rgba(201,168,76,0.15);
+    border-color: #c9a84c;
+    color: #7a4f20;
+  }
+  .page-arrow:disabled { opacity: 0.25; cursor: default; }
+  .page-dots { display: flex; gap: 0.4rem; align-items: center; }
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(180,140,60,0.3);
+    transition: background 0.3s, transform 0.3s;
+  }
+  .dot.active {
+    background: #c9a84c;
+    transform: scale(1.3);
+  }
+
+  @media (max-width: 600px) {
+    .book-cover-left { width: 30%; padding: 1rem 0.8rem; }
+    .cover-title { font-size: 1.1rem; }
+    .page-sheet { padding: 1.2rem 1.2rem 1rem; }
+    .checklist li label { font-size: 0.9rem; }
+  }
+</style>
+
+<script>
+  let currentPage = 0;
+  const totalPages = 3;
+  let isAnimating = false;
+
+  function openPlanner() {
+    document.getElementById('plannerOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    updateUI();
+  }
+  function closePlanner() {
+    document.getElementById('plannerOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closePlannerOutside(e) {
+    if (e.target === document.getElementById('plannerOverlay')) closePlanner();
+  }
+
+  function goToPage(idx) {
+    if (idx === currentPage || isAnimating) return;
+    flipTo(idx > currentPage ? 'next' : 'prev', idx);
+  }
+
+  function nextPage() {
+    if (currentPage >= totalPages - 1 || isAnimating) return;
+    flipTo('next', currentPage + 1);
+  }
+  function prevPage() {
+    if (currentPage <= 0 || isAnimating) return;
+    flipTo('prev', currentPage - 1);
+  }
+
+  function flipTo(dir, targetIdx) {
+    isAnimating = true;
+    const current = document.getElementById('page-' + currentPage);
+    const next = document.getElementById('page-' + targetIdx);
+
+    // Prep incoming page off-screen
+    next.style.transition = 'none';
+    next.style.transform = dir === 'next' ? 'translateX(60px)' : 'translateX(-60px)';
+    next.style.opacity = '0';
+    next.classList.remove('active', 'exit-left');
+
+    // Force reflow
+    next.offsetHeight;
+
+    // Exit current
+    current.style.transition = '';
+    current.classList.remove('active');
+    current.classList.add(dir === 'next' ? 'exit-left' : '');
+    if (dir === 'prev') {
+      current.style.transform = 'translateX(60px)';
+      current.style.opacity = '0';
+    }
+
+    // Animate in new
+    next.style.transition = '';
+    next.classList.add('active');
+
+    currentPage = targetIdx;
+    updateUI();
+
+    setTimeout(() => {
+      current.classList.remove('exit-left');
+      current.style.transform = '';
+      current.style.opacity = '';
+      current.style.transition = '';
+      isAnimating = false;
+    }, 400);
+  }
+
+  function updateUI() {
+    // Arrows
+    document.getElementById('prevArrow').disabled = currentPage === 0;
+    document.getElementById('nextArrow').disabled = currentPage === totalPages - 1;
+
+    // Dots
+    document.querySelectorAll('.dot').forEach((d, i) => {
+      d.classList.toggle('active', i === currentPage);
+    });
+
+    // Chapter tabs
+    document.querySelectorAll('.ch-tab').forEach((t, i) => {
+      t.classList.toggle('active', i === currentPage);
+    });
+  }
+</script>
+
 </body>
 </html>
